@@ -1,0 +1,13 @@
+.main-header {
+  align-items: center;
+  background-color: var(--primary-color);
+  display: flex;
+  padding: 20px;
+  width: 100%;
+}
+
+.main-header span {
+  color: var(--text-color-light);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
