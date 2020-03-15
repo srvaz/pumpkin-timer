@@ -8,7 +8,7 @@ import Timer from './components/Timer';
 function App() {
   return (
     <div className="main-container">
-      <Header />
+      <Header title="PumpkinTimer()" />
       <Timer seconds="3000" />
     </div>
   );
