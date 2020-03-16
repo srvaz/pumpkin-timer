@@ -19,6 +19,8 @@ jobs:
         
     steps:
       - uses: actions/checkout@v1
+      - name: Yarn CLI
+        uses: CultureHQ/actions-yarn@v1.0.1
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
@@ -26,6 +28,6 @@ jobs:
           
       - name: npm install, build and test
         run: |
-          npm install
+          yarn
           npm run build --if-present
           npm test
