@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![](https://github.com/srvaz/pumpkin-timer/workflows/.github/workflows/nodejs.yml/badge.svg)
 
 ## Available Scripts
 
