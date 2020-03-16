@@ -1,4 +1,4 @@
-![](https://github.com/srvaz/pumpkin-timer/workflows/.github/workflows/nodejs.yml/badge.svg)
+![Node.js CI](https://github.com/srvaz/pumpkin-timer/workflows/Node.js%20CI/badge.svg)
 
 ## Available Scripts
 
