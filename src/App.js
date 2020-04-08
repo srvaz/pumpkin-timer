@@ -1,4 +1,7 @@
 import React from 'react';
+import { Container } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { blue } from '@material-ui/core/colors';
 
 import './styles.css';
 
@@ -6,11 +9,20 @@ import Header from './components/Header';
 import Timer from './components/Timer';
 
 function App() {
+  const theme = createMuiTheme({
+    palette: {
+      type: 'dark',
+      primary: blue,
+    },
+  });
+
   return (
-    <div className="main-container">
-      <Header title="PumpkinTimer()" />
-      <Timer seconds="3000" />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Header title='PumpkinTimer' />
+      <Container className='main-container' component='main'>
+        <Timer seconds='3000' />
+      </Container>
+    </ThemeProvider>
   );
 }
 
