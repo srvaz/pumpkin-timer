@@ -24,8 +24,8 @@ export default class Timer extends Component {
   resetTime = () => {
     const now = new Date();
     const startTime = now.getTime();
-    const endTime = now.setSeconds(
-      now.getSeconds() + parseInt(this.props.seconds)
+    const endTime = now.setMinutes(
+      now.getMinutes() + parseInt(this.props.minutes)
     );
 
     const { minutes, seconds } = dateToTime(startTime, endTime);
@@ -50,7 +50,7 @@ export default class Timer extends Component {
       if (distance >= 0) {
         this.setState({ minutes, seconds });
       } else {
-        this.setState({ minutes, seconds });
+        this.resetTime();
         clearInterval(this.timerInterval);
       }
     }, 1000);
@@ -58,8 +58,8 @@ export default class Timer extends Component {
 
   startTimer = () => {
     const countDownEnd = new Date();
-    countDownEnd.setSeconds(
-      countDownEnd.getSeconds() + parseInt(this.props.seconds)
+    countDownEnd.setMinutes(
+      countDownEnd.getMinutes() + parseInt(this.props.minutes)
     );
 
     this.countDown(countDownEnd.getTime());

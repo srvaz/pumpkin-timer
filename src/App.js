@@ -20,7 +20,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Header title='PumpkinTimer' />
       <Container className='main-container' component='main'>
-        <Timer seconds='3000' />
+        <Timer minutes='1' />
       </Container>
     </ThemeProvider>
   );
