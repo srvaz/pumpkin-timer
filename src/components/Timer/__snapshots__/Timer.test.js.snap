@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components > Timer renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiPaper-root MuiCard-root timer-card MuiPaper-outlined MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardContent-root"
+    >
+      <h5
+        class="MuiTypography-root MuiTypography-h5"
+      >
+        01:00
+      </h5>
+      <button
+        aria-label="Play/Stop"
+        class="MuiButtonBase-root MuiIconButton-root"
+        id="js-icon-button"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiIconButton-label"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M8 5v14l11-7z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

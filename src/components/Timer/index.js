@@ -79,7 +79,11 @@ export default class Timer extends Component {
           <Typography variant='h5'>
             {normalizeNumber(minutes)}:{normalizeNumber(seconds)}
           </Typography>
-          <IconButton onClick={this.toggleTimer} aria-label='Play/Stop'>
+          <IconButton
+            id='js-icon-button'
+            onClick={this.toggleTimer}
+            aria-label='Play/Stop'
+          >
             {started ? <StopIcon /> : <PlayArrowIcon />}
           </IconButton>
         </CardContent>
