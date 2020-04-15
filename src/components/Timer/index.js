@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { Card, CardContent, IconButton, Typography } from '@material-ui/core';
+import { Card, CardContent, IconButton, LinearProgress, Typography } from '@material-ui/core';
 import {
+  Pause as PauseIcon,
   PlayArrow as PlayArrowIcon,
-  Stop as StopIcon,
+  Replay as ReplayIcon,
 } from '@material-ui/icons';
+import * as moment from 'moment';
 
-import './styles.css';
-import { normalizeNumber, dateToTime } from '../../utils/numbers';
+import './styles.scss';
+import { normalizeNumber } from '../../utils/numbers';
 
 export default class Timer extends Component {
   state = {
+    color: 'primary',
+    limit: null,
     minutes: 0,
+    percentage: 0,
     seconds: 0,
     started: false,
   };
@@ -19,42 +24,52 @@ export default class Timer extends Component {
 
   componentDidMount() {
     this.resetTime();
+    const { color } = this.props;
+
+    if (color) this.setState({ color });
   }
 
   resetTime = () => {
-    const now = new Date();
-    const startTime = now.getTime();
-    const endTime = now.setMinutes(
-      now.getMinutes() + parseInt(this.props.minutes)
-    );
+    const duration = moment.duration(parseInt(this.props.minutes), 'minutes');
+    const [minutes, seconds] = [
+      duration.minutes(),
+      duration.seconds()
+    ];
 
-    const { minutes, seconds } = dateToTime(startTime, endTime);
-
-    this.setState({ minutes, seconds });
+    this.setState({ minutes, seconds, started: false, percentage: 0, limit: null });
   };
 
   toggleTimer = () => {
     const { started } = this.state;
 
-    started ? this.stopTimer() : this.startTimer();
+    started ? this.pauseTimer() : this.startTimer();
 
     this.setState({ started: !started });
   };
 
-  countDown = (countDownEnd) => {
+  countDown = () => {
+    const limit = this.state.limit ? this.state.limit : moment().add(this.props.minutes, 'm');
+    this.setState({ limit });
+
     this.timerInterval = setInterval(() => {
-      const now = new Date().getTime();
+      const now = moment();
+      const diff = limit - now;
+      const dist = moment.duration(diff);
+      const [minutes, seconds] = [
+        dist.minutes(),
+        dist.seconds(),
+      ];
 
-      const { distance, minutes, seconds } = dateToTime(now, countDownEnd);
-
-      if (distance >= 0) {
-        this.setState({ minutes, seconds });
+      if (diff >= 0) {
+        this.setState({ minutes, seconds, percentage: this.calcPercent(diff) });
       } else {
         this.resetTime();
         clearInterval(this.timerInterval);
       }
-    }, 1000);
+    }, 100);
   };
+
+  calcPercent = currentTime => ((60000 - currentTime) / 60000) * 100;
 
   startTimer = () => {
     const countDownEnd = new Date();
@@ -62,29 +77,44 @@ export default class Timer extends Component {
       countDownEnd.getMinutes() + parseInt(this.props.minutes)
     );
 
-    this.countDown(countDownEnd.getTime());
+    this.countDown();
   };
 
-  stopTimer = () => {
+  pauseTimer = () => {
     clearInterval(this.timerInterval);
-    this.resetTime();
   };
 
   render() {
-    const { minutes, seconds, started } = this.state;
+    const {
+      color,
+      minutes,
+      percentage,
+      seconds,
+      started,
+    } = this.state;
 
     return (
-      <Card className='timer-card' variant='outlined'>
+      <Card className='timer-card' variant='elevation' raised='true'>
         <CardContent>
-          <Typography variant='h5'>
+          <LinearProgress
+            className='timer-progress'
+            variant='determinate'
+            value={percentage} color={color} />
+          <Typography className='timer-time' variant='h1' component='h5'>
             {normalizeNumber(minutes)}:{normalizeNumber(seconds)}
           </Typography>
           <IconButton
+            onClick={this.resetTime}
+            aria-label='Restart'
+          >
+            <ReplayIcon />
+          </IconButton>
+          <IconButton
             id='js-icon-button'
             onClick={this.toggleTimer}
-            aria-label='Play/Stop'
+            aria-label='Play/Pause'
           >
-            {started ? <StopIcon /> : <PlayArrowIcon />}
+            {started ? <PauseIcon /> : <PlayArrowIcon />}
           </IconButton>
         </CardContent>
       </Card>

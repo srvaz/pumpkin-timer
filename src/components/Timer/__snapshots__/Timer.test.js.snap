@@ -9,10 +9,20 @@ exports[`Components > Timer renders correctly 1`] = `
       class="MuiCardContent-root"
     >
       <h5
-        class="MuiTypography-root MuiTypography-h5"
+        class="MuiTypography-root MuiTypography-h1"
       >
         01:00
       </h5>
+      <div
+        aria-valuenow="0"
+        class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate"
+        role="progressbar"
+      >
+        <div
+          class="MuiLinearProgress-bar MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate"
+          style="transform: translateX(-100%);"
+        />
+      </div>
       <button
         aria-label="Play/Stop"
         class="MuiButtonBase-root MuiIconButton-root"

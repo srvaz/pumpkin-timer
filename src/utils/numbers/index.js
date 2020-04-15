@@ -18,3 +18,9 @@ export const dateToTime = (startTime, endTime) => {
 
   return { distance, minutes, seconds: seconds >= 0 ? seconds : 0 };
 };
+
+/**
+ * @param {number} finalTime
+ * @param {number} currentTime
+ */
+export const timeToPercent = (finalTime, currentTime) => currentTime / finalTime;

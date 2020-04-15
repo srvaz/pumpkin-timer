@@ -1,4 +1,6 @@
 .main-container {
+  display: flex !important;
+  flex-wrap: wrap;
   height: calc(100vh - (64px + var(--space-st)));
   padding-top: calc(var(--space-st) + 64px);
 }
