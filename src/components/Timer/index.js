@@ -30,6 +30,7 @@ export default class Timer extends Component {
   }
 
   resetTime = () => {
+    this.pauseTimer();
     const duration = moment.duration(parseInt(this.props.minutes), 'minutes');
     const [minutes, seconds] = [
       duration.minutes(),
