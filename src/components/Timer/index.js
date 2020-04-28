@@ -18,6 +18,7 @@ export default class Timer extends Component {
     percentage: 0,
     seconds: 0,
     started: false,
+    totalTime: null,
   };
 
   timerInterval = null;
@@ -37,7 +38,18 @@ export default class Timer extends Component {
       duration.seconds()
     ];
 
-    this.setState({ minutes, seconds, started: false, percentage: 0, limit: null });
+    const now = moment();
+    const finalTime = moment().add(this.props.minutes, 'm');
+    const totalTime = finalTime - now;
+
+    this.setState({
+      minutes,
+      seconds,
+      started: false,
+      percentage: 0,
+      limit: null,
+      totalTime,
+    });
   };
 
   toggleTimer = () => {
@@ -70,7 +82,11 @@ export default class Timer extends Component {
     }, 100);
   };
 
-  calcPercent = currentTime => ((60000 - currentTime) / 60000) * 100;
+  calcPercent = currentTime => {
+    const { totalTime } = this.state;
+
+    return ((totalTime - currentTime) / totalTime) * 100;
+  };
 
   startTimer = () => {
     const countDownEnd = new Date();
